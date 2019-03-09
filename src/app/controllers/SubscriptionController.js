@@ -17,9 +17,9 @@ class SubscriptionController {
     const meetup = await Meetup.findOneAndUpdate(
       {
         _id: req.body.meetup_id,
-        // subscriptions: {
-        // $ne: req.userId,
-        // },
+        subscriptions: {
+          $ne: req.userId,
+        },
       },
       { $push: { subscriptions: req.userId } },
     );
