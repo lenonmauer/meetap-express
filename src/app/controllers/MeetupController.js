@@ -2,25 +2,70 @@ const moment = require('moment');
 const { validationResult } = require('express-validator/check');
 
 const Meetup = require('../models/Meetup');
+const User = require('../models/User');
 const { extract } = require('../helpers/functions');
 
 class MeetupController {
   async index (req, res) {
-    return res.send('ok');
+    const search = req.query.search || '';
+    const now = moment().format('YYYY-MM-DD HH:mm');
+    const user = await User.findById(req.userId);
+
+    const subscriptions = await Meetup
+      .find({
+        title: new RegExp(search, 'i'),
+        date: {
+          $gt: now,
+        },
+        subscriptions: req.userId,
+      })
+      .sort({ date: 1 })
+      .limit(6);
+
+    const subscriptionsId = subscriptions.map(subscription => subscription.id);
+
+    const next = await Meetup
+      .find({
+        title: new RegExp(search, 'i'),
+        date: {
+          $gt: now,
+        },
+        _id: {
+          $nin: subscriptionsId,
+        },
+      })
+      .sort({ date: 1 });
+
+    const recommended = await Meetup
+      .find({
+        title: new RegExp(search, 'i'),
+        date: {
+          $gt: now,
+        },
+        _id: {
+          $nin: subscriptionsId,
+        },
+        categories: {
+          $in: user.categories,
+        },
+      })
+      .sort({ date: 1 });
+
+    return res.json({
+      subscriptions,
+      next,
+      recommended,
+    });
   }
 
   async show (req, res) {
     const meetup = await Meetup.findOne({ _id: req.params.id });
 
-    const subscript = meetup.categories.includes(req.userId);
-    const members_count = meetup.subscriptions.length;
-
-    const data = extract(meetup.toJSON(), ['_id', 'title', 'description', 'localization', 'date']);
+    const subscript = meetup.subscriptions.indexOf(req.userId) >= 0;
 
     return res.json({
-      ...data,
+      ...meetup.toJSON(),
       subscript,
-      members_count,
     });
   }
 
