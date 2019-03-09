@@ -5,8 +5,15 @@ const jobs = require('../jobs');
 
 const Queue = kue.createQueue({ redis: redisConfig });
 
-Queue.process(jobs.PurchaseMail.key, jobs.PurchaseMail.handle);
+Queue.process(jobs.NewSubscriptionMail.key, jobs.NewSubscriptionMail.handle);
 
-Queue.on('error', Sentry.captureException);
+if (process.env.NODE_ENV === 'development') {
+  Queue.on('error', (error) => {
+    console.log(error);
+  });
+}
+else {
+  Queue.on('error', Sentry.captureException);
+}
 
 module.exports = Queue;
