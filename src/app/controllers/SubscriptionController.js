@@ -14,11 +14,15 @@ class SubscriptionController {
       {
         _id: req.body.meetup_id,
         subscriptions: {
-          $nin: [req.userId],
+          $ne: req.userId,
         },
       },
       { $push: { subscriptions: req.userId } },
     );
+
+    if (meetup) {
+      // trigger email
+    }
 
     return res.json(meetup);
   }
