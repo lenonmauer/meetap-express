@@ -79,7 +79,7 @@ class MeetupController {
     const data = extract(req.body, ['title', 'description', 'date', 'photo', 'localization', 'categories']);
 
     const now = moment().format('x');
-    const dateInMilis = moment(data.date, 'DD/MM/YYYY H:m').format('x');
+    const dateInMilis = moment(data.date, 'DD/MM/YYYY HH:mm').format('x');
 
     if (Number(dateInMilis) < Number(now)) {
       return res.status(400).send([
