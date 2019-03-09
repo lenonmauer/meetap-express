@@ -1,12 +1,10 @@
-module.exports = (value) => {
+module.exports = (value) => isDate(value);
+
+const isDate = (value) => {
   value = value || '';
+
   const [day, month, year] = value.split('/');
-
   const result = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/) && checkDate(day, month, year);
-
-  if (!result) {
-    throw new Error('Invalid date');
-  }
 
   return result;
 };

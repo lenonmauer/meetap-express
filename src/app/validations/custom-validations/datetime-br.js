@@ -1,12 +1,4 @@
-module.exports = (value, { req }) => {
-  const result = isDateTimeBR(value);
-
-  if (!result) {
-    throw new Error('Invalid datetime');
-  }
-
-  return result;
-};
+module.exports = (value) => isDateTimeBR(value);
 
 const isDateTimeBR = (value) => {
   const [date, time] = value.split(' ');

@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
 
-module.exports = (value, { req }) => {
+module.exports = (value) => {
   const result = mongoose.Types.ObjectId.isValid(value);
-
-  if (!result) {
-    throw new Error('Invalid ObjectId');
-  }
 
   return result;
 };
