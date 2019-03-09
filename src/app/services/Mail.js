@@ -6,12 +6,17 @@ const exphbs = require('express-handlebars');
 
 const transport = nodemailer.createTransport(mailConfig);
 
+const viewPath = path.resolve(__dirname, '..', 'views', 'emails');
+
 transport.use(
   'compile',
   hbs({
-    viewEngine: exphbs(),
-    viewPath: path.resolve(__dirname, '..', 'views', 'emails'),
+    viewEngine: exphbs.create({
+      partialsDir: path.resolve(viewPath, 'partials'),
+    }),
+    viewPath,
     extName: '.hbs',
-  }));
+  })
+);
 
 module.exports = transport;
