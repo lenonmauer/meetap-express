@@ -5,7 +5,7 @@ const { extract } = require('../helpers/functions');
 
 class UserController {
   async show (req, res, next) {
-    const user = await User.findById(req.userId);
+    const user = await User.findOne({ _id: req.userId });
 
     const { categories, name } = user;
 
