@@ -4,7 +4,7 @@ const isDate = (value) => {
   value = value || '';
 
   const [day, month, year] = value.split('/');
-  const result = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/) && checkDate(day, month, year);
+  const result = Boolean(value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)) && checkDate(day, month, year);
 
   return result;
 };
