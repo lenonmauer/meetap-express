@@ -8,7 +8,7 @@ module.exports = [
   body('description')
     .isString()
     .not().isEmpty(),
-  body('photo_id')
+  body('photo')
     .isString()
     .not().isEmpty()
     .custom(customValidations['object-id'])

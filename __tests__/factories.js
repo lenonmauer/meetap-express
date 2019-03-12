@@ -30,7 +30,7 @@ factory.define('File', mongoose.model('File'), {
 factory.define('Meetup', mongoose.model('Meetup'), {
   title: faker.name.title(),
   description: faker.name.jobDescriptor(),
-  photo_id: factory.assoc('File', '_id'),
+  photo: factory.assoc('File', '_id'),
   user: factory.assoc('User', '_id'),
   localization: faker.address.city(),
   date: moment().add(1, 'day').endOf('day').format('YYYY-MM-DD HH:mm'),
