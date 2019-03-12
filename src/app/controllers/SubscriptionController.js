@@ -22,6 +22,7 @@ class SubscriptionController {
         },
       },
       { $push: { subscriptions: req.userId } },
+      { new: true }
     );
 
     if (meetup) {
