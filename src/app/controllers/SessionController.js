@@ -4,6 +4,12 @@ const User = require('../models/User');
 
 class SessionController {
   async store (req, res) {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
