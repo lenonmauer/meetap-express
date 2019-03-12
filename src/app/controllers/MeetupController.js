@@ -82,11 +82,9 @@ class MeetupController {
     const dateInMilis = moment(data.date, 'DD/MM/YYYY HH:mm').format('x');
 
     if (Number(dateInMilis) < Number(now)) {
-      return res.status(400).send([
-        {
-          error: 'O campo data dever ser maior que a data de hoje.',
-        },
-      ]);
+      return res.status(400).send({
+        error: 'O campo data dever ser maior que a data de hoje.',
+      });
     }
 
     const formattedData = {
