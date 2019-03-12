@@ -10,6 +10,12 @@ class FileController {
   async store (req, res) {
     const { file } = req;
 
+    if (!req.file) {
+      return res.status(400).send({
+        error: 'No file has sent',
+      });
+    }
+
     const data = {
       type: file.mimetype,
       name: file.filename,
