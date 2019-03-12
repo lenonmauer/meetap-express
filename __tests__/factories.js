@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
+const path = require('path');
 const factoryGirl = require('factory-girl');
 const faker = require('faker');
 
@@ -19,14 +21,20 @@ factory.define('UserWithCategories', mongoose.model('User'), {
   categories: ['front-end', 'back-end'],
 });
 
-/*
-factory.define('Ad', mongoose.model('Ad'), {
-  title: faker.name.title(),
-  description: faker.lorem.paragraph,
-  author: factory.assoc('User', '_id'),
-  purchasedBy: factory.assoc('User', '_id'),
-  price: faker.random.number,
+factory.define('File', mongoose.model('File'), {
+  type: faker.system.mimeType(),
+  name: faker.system.fileName(),
+  path: path.resolve(__dirname, 'upload', 'image.jpg'),
 });
-*/
+
+factory.define('Meetup', mongoose.model('Meetup'), {
+  title: faker.name.title(),
+  description: faker.name.jobDescriptor(),
+  photo_id: factory.assoc('File', '_id'),
+  user: factory.assoc('User', '_id'),
+  localization: faker.address.city(),
+  date: moment().add(1, 'day').endOf('day').format('YYYY-MM-DD HH:mm'),
+  categories: ['front-end', 'back-end'],
+});
 
 module.exports = factory;
