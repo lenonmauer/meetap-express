@@ -14,10 +14,6 @@ module.exports = {
     },
   }),
   fileFilter: function (req, file, callback) {
-    if (file.mimetype.indexOf('image/') < 0) {
-      return callback(new Error('Only images are allowed'));
-    }
-
-    callback(null, true);
+    callback(null, file.mimetype.indexOf('image/') >= 0);
   },
 };
