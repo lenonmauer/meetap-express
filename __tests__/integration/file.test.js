@@ -1,20 +1,18 @@
-const mongoose = require('mongoose');
 const path = require('path');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
 const app = require('../../src/server');
+
 const factory = require('../factories');
-
-const File = mongoose.model('File');
-
+const truncate = require('../utils/truncate');
 const { expect } = chai;
 
 chai.use(chaiHttp);
 
 describe('File Controller', () => {
   beforeEach(async () => {
-    await File.deleteMany();
+    await truncate();
   });
 
   describe('Store', () => {

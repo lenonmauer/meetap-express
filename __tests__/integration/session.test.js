@@ -1,19 +1,17 @@
-const mongoose = require('mongoose');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
 const app = require('../../src/server');
 
-const User = mongoose.model('User');
-
 const factory = require('../factories');
+const truncate = require('../utils/truncate');
 const { expect } = chai;
 
 chai.use(chaiHttp);
 
 describe('Session Controller', () => {
   beforeEach(async () => {
-    await User.deleteMany();
+    await truncate();
   });
 
   describe('Store', () => {

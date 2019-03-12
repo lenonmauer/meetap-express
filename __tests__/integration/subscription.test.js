@@ -6,20 +6,17 @@ const chaiHttp = require('chai-http');
 const app = require('../../src/server');
 const Queue = require('../../src/app/services/Queue');
 
-const User = mongoose.model('User');
 const Meetup = mongoose.model('Meetup');
-const File = mongoose.model('File');
 
 const factory = require('../factories');
+const truncate = require('../utils/truncate');
 const { expect } = chai;
 
 chai.use(chaiHttp);
 
 describe('Subscription Controller', () => {
   beforeEach(async () => {
-    await User.deleteMany();
-    await Meetup.deleteMany();
-    await File.deleteMany();
+    await truncate();
   });
 
   describe('Store', () => {
