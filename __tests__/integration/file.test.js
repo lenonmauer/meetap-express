@@ -19,7 +19,7 @@ describe('File Controller', () => {
 
   describe('Store', () => {
     it('should store a new file', async () => {
-      const filepath = path.resolve(__dirname, '..', 'upload', 'image.jpg');
+      const filepath = path.resolve(__dirname, '..', 'utils', 'upload', 'image.jpg');
 
       const response = await chai.request(app)
         .post('/upload')
@@ -30,7 +30,7 @@ describe('File Controller', () => {
     });
 
     it('should not store a file if it is not a image', async () => {
-      const filepath = path.resolve(__dirname, '..', 'upload', 'text.txt');
+      const filepath = path.resolve(__dirname, '..', 'utils', 'upload', 'text.txt');
 
       const response = await chai.request(app)
         .post('/upload')

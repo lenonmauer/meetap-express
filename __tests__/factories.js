@@ -24,7 +24,7 @@ factory.define('UserWithCategories', mongoose.model('User'), {
 factory.define('File', mongoose.model('File'), {
   type: faker.system.mimeType(),
   name: faker.system.fileName(),
-  path: path.resolve(__dirname, 'upload', 'image.jpg'),
+  path: path.resolve(__dirname, 'utils', 'upload', 'image.jpg'),
 });
 
 factory.define('Meetup', mongoose.model('Meetup'), {
