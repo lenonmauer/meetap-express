@@ -48,22 +48,6 @@ class App {
   }
 
   routes () {
-    const handle = require('express-async-handler');
-    const { validationResult } = require('express-validator/check');
-    const validations = require('./app/validations');
-
-    this.express.post('/hi', validations.session, handle(async (req, res) => {
-      const errors = validationResult(req);
-
-      console.log(process.version);
-
-      if (!errors.isEmpty()) {
-        return res.status(422).json({ errors: errors.array() });
-      }
-
-      res.send('hi');
-    }));
-
     this.express.use(routes);
   }
 

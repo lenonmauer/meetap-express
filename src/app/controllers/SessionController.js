@@ -12,11 +12,7 @@ class SessionController {
 
     const { email, password } = req.body;
 
-    console.log('before find');
-
     const user = await User.findOne({ email });
-
-    console.log('after find');
 
     if (!user) {
       return res.status(400).json({ error: 'User not found' });
