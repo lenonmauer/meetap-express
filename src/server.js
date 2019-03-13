@@ -52,7 +52,7 @@ class App {
     const { validationResult } = require('express-validator/check');
     const validations = require('./app/validations');
 
-    this.express.post('/hi', validations.session, (req, res) => {
+    this.express.post('/hi', validations.session, handle(async (req, res) => {
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
@@ -60,7 +60,7 @@ class App {
       }
 
       res.send('hi');
-    });
+    }));
 
     this.express.use(routes);
   }
