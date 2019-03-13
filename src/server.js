@@ -43,8 +43,8 @@ class App {
     this.express.use(helmet());
     this.express.use(compression());
     this.express.use(express.json());
-    // this.express.use(cors());
-    this.express.use(Sentry.Handlers.requestHandler());
+    this.express.use(cors());
+    // this.express.use(Sentry.Handlers.requestHandler());
 
     console.log('cors 3');
 
