@@ -44,20 +44,14 @@ class App {
     this.express.use(compression());
     this.express.use(express.json());
     this.express.use(cors());
-    // this.express.use(Sentry.Handlers.requestHandler());
-
-    console.log('cors 3');
-
-    this.express.use(function (req, res, next) {
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Credentials', true);
-      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-      res.header('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-      next();
-    });
+    this.express.use(Sentry.Handlers.requestHandler());
   }
 
   routes () {
+    this.express.post('/hi', (req, res) => {
+      res.send('hi');
+    });
+
     this.express.use(routes);
   }
 
