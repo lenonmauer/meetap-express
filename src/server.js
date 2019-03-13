@@ -40,12 +40,21 @@ class App {
   }
 
   middlewares () {
-    console.log('cors 2');
     this.express.use(helmet());
     this.express.use(compression());
     this.express.use(express.json());
-    this.express.use(cors());
+    // this.express.use(cors());
     this.express.use(Sentry.Handlers.requestHandler());
+
+    console.log('cors 3');
+
+    this.express.use(function (req, res, next) {
+      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Credentials', true);
+      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+      res.header('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+      next();
+    });
   }
 
   routes () {
