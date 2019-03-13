@@ -55,6 +55,8 @@ class App {
     this.express.post('/hi', validations.session, handle(async (req, res) => {
       const errors = validationResult(req);
 
+      console.log(process.version);
+
       if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
       }
