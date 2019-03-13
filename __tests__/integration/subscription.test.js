@@ -72,4 +72,17 @@ describe('Subscription Controller', () => {
       expect(sendMail.notCalled).to.be.eq(true);
     });
   });
+
+  it('should return validation error when no data was sent', async () => {
+    const user = await factory.create('User');
+    const token = user.generateToken();
+
+    const response = await chai.request(app)
+      .post('/subscriptions')
+      .set('Authorization', `Bearer ${token}`)
+      .send();
+
+    expect(response.status).to.be.eq(422);
+    expect(response.body).to.have.property('errors');
+  });
 });
