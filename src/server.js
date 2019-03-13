@@ -48,7 +48,10 @@ class App {
   }
 
   routes () {
-    this.express.post('/hi', (req, res) => {
+    const handle = require('express-async-handler');
+    const validations = require('./app/validations');
+
+    this.express.post('/hi', validations.session, (req, res) => {
       res.send('hi');
     });
 
