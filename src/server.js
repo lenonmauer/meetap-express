@@ -40,11 +40,11 @@ class App {
   }
 
   middlewares () {
-	console.log('cors ');
+    console.log('cors 2');
     this.express.use(helmet());
-    this.express.use(cors());
     this.express.use(compression());
     this.express.use(express.json());
+    this.express.use(cors());
     this.express.use(Sentry.Handlers.requestHandler());
   }
 
