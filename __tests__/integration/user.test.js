@@ -76,7 +76,7 @@ describe('User Controller', () => {
 
   describe('Update', () => {
     it('should be able to update a user', async () => {
-      const data = await factory.attrs('UserWithCategories');
+      const data = await factory.attrs('User', { categories: ['front-end', 'back-end'] });
       const user = await factory.create('User');
       const token = user.generateToken();
 
