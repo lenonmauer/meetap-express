@@ -8,6 +8,10 @@ const express = require('express');
 const Sentry = require('@sentry/node');
 const Youch = require('youch');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
+const cors = require('cors');
+const compression = require('compression');
+
 const mongoConfig = require('./config/database');
 const sentryConfig = require('./config/sentry');
 const routes = require('./routes');
@@ -36,6 +40,9 @@ class App {
   }
 
   middlewares () {
+    this.express.use(helmet());
+    this.express.use(cors());
+    this.express.use(compression());
     this.express.use(express.json());
     this.express.use(Sentry.Handlers.requestHandler());
   }
@@ -50,9 +57,9 @@ class App {
     }
 
     this.express.use(async (err, req, res) => {
-      // if (err instanceof validate.ValidationError) {
-      //  return res.status(err.status).json(err);
-      // }
+      if (err.status === 400 || err.status === 422) {
+        return res.status(err.status).json(err);
+      }
 
       if (process.env.NODE_ENV !== 'production') {
         const youch = new Youch(err);
