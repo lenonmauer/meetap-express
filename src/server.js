@@ -40,6 +40,7 @@ class App {
   }
 
   middlewares () {
+	console.log('cors ');
     this.express.use(helmet());
     this.express.use(cors());
     this.express.use(compression());
