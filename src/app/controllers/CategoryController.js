@@ -1,5 +1,5 @@
 class CategoryController {
-  async index (req, res) {
+  index (req, res) {
     return res.send([
       {
         id: 'front-end',
