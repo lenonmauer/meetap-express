@@ -16,6 +16,7 @@ const MeetupSchema = new mongoose.Schema({
   photo: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'File',
+    required: true,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -43,9 +44,8 @@ const MeetupSchema = new mongoose.Schema({
   toJSON: { virtuals: true },
 });
 
-MeetupSchema.virtual('photo_url')
-  .get(function () {
-    return `${process.env.APP_URL}/files/${this.photo}`;
-  });
+MeetupSchema.pre('find', function () {
+  this.populate('photo');
+});
 
 module.exports = mongoose.model('Meetup', MeetupSchema);
