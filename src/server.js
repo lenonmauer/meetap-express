@@ -51,7 +51,7 @@ class App {
 
   routes () {
     this.express.use('/files', express.static(uploadDir));
-    this.express.use(routes);
+    this.express.use('/api', routes);
   }
 
   exception () {
