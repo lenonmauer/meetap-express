@@ -48,4 +48,8 @@ MeetupSchema.pre('find', function () {
   this.populate('photo');
 });
 
+MeetupSchema.pre('findOne', function () {
+  this.populate('photo');
+});
+
 module.exports = mongoose.model('Meetup', MeetupSchema);
