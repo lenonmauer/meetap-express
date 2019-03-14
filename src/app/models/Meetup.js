@@ -38,6 +38,14 @@ const MeetupSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+}, {
+  toObject: { virtuals: true },
+  toJSON: { virtuals: true },
 });
+
+MeetupSchema.virtual('photo_url')
+  .get(function () {
+    return `${process.env.APP_URL}/files/${this.photo}`;
+  });
 
 module.exports = mongoose.model('Meetup', MeetupSchema);
