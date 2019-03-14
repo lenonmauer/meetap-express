@@ -17,6 +17,13 @@ const FileSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+}, {
+  toJSON: { virtuals: true },
 });
+
+FileSchema.virtual('url')
+  .get(function () {
+    return `${process.env.APP_URL}/files/${this.id}`;
+  });
 
 module.exports = mongoose.model('File', FileSchema);
