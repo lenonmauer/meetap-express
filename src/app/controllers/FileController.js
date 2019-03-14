@@ -1,10 +1,12 @@
 const File = require('../models/File');
+const path = require('path');
 
 class FileController {
   async show (req, res) {
     const file = await File.findById(req.params.id);
+    const filepath = path.join(file.path, file.name);
 
-    res.sendFile(file.path);
+    res.sendFile(filepath);
   }
 
   async store (req, res) {
@@ -12,19 +14,19 @@ class FileController {
 
     if (!req.file) {
       return res.status(400).send({
-        error: 'No file has sent',
+        error: 'Nenhum arquivo enviado',
       });
     }
 
     const data = {
       type: file.mimetype,
       name: file.filename,
-      path: file.path,
+      path: file.destination,
     };
 
     const record = await File.create(data);
 
-    res.json(record);
+    return res.json(record);
   }
 }
 
