@@ -15,11 +15,11 @@ class SessionController {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(400).json({ error: 'User not found' });
+      return res.status(400).json({ error: 'E-mail não encontrado' });
     }
 
     if (!await user.compareHash(password)) {
-      return res.status(400).json({ error: 'Invalid password' });
+      return res.status(400).json({ error: 'Senha inválida' });
     }
 
     const token = user.generateToken(user);
