@@ -22,6 +22,8 @@ class SessionController {
       return res.status(400).json({ error: 'Senha inválida' });
     }
 
+    await User.updateOne({ _id: user.id }, { first_login: false });
+
     const token = user.generateToken(user);
     const { first_login } = user;
 
