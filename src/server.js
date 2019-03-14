@@ -11,9 +11,11 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cors = require('cors');
 const compression = require('compression');
+const path = require('path');
 
 const mongoConfig = require('./config/database');
 const sentryConfig = require('./config/sentry');
+const { uploadDir } = require('./config/upload');
 const routes = require('./routes');
 
 class App {
@@ -48,6 +50,7 @@ class App {
   }
 
   routes () {
+    this.express.use('/files', express.static(uploadDir));
     this.express.use(routes);
   }
 

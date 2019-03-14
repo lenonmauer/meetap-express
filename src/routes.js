@@ -29,7 +29,6 @@ routes.get('/profile', authMiddleware, handle(UserController.show));
 
 routes.get('/categories', handle(CategoryController.index));
 
-routes.get('/files/:id', handle(FileController.show));
 routes.post('/upload', upload.single('photo'), handle(FileController.store));
 
 routes.put('/user-categories', authMiddleware, validations['user-category'], handle(UserCategoryController.update));
