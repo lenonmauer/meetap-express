@@ -41,12 +41,14 @@ class UserController {
       return res.status(422).json({ errors: errors.array() });
     }
 
-    const { userId } = req;
+    const user = await User.findOne({ _id: req.userId });
     const data = extract(req.body, ['name', 'password', 'categories']);
 
-    const result = await User.findOneAndUpdate({ _id: userId }, data, { new: true });
+    Object.assign(user, data);
 
-    const { name, categories } = result;
+    await user.save();
+
+    const { name, categories } = user;
 
     return res.json({
       name,
