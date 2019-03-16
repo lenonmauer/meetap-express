@@ -20,7 +20,7 @@ describe('Session Controller', () => {
       const user = await factory.create('User', { password });
 
       const response = await chai.request(app)
-        .post('/login')
+        .post('/api/login')
         .send({
           email: user.email,
           password,
@@ -33,7 +33,7 @@ describe('Session Controller', () => {
 
     it('should return error if email doesnt exists', async () => {
       const response = await chai.request(app)
-        .post('/login')
+        .post('/api/login')
         .send({
           email: 'aaaaa@gmail.com',
           password: '123123',
@@ -47,7 +47,7 @@ describe('Session Controller', () => {
       const user = await factory.create('User', { password: '123123' });
 
       const response = await chai.request(app)
-        .post('/login')
+        .post('/api/login')
         .send({
           email: user.email,
           password: '1231232',
@@ -59,7 +59,7 @@ describe('Session Controller', () => {
 
     it('should return validation error if no data has sent', async () => {
       const response = await chai.request(app)
-        .post('/login')
+        .post('/api/login')
         .send();
 
       expect(response.status).to.be.eq(422);

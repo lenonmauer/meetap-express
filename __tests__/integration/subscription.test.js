@@ -30,7 +30,7 @@ describe('Subscription Controller', () => {
       const sendMail = sinon.spy(Queue, 'create');
 
       const response = await chai.request(app)
-        .post('/subscriptions')
+        .post('/api/subscriptions')
         .set('Authorization', `Bearer ${token}`)
         .send({
           meetup_id: meetup.id,
@@ -60,7 +60,7 @@ describe('Subscription Controller', () => {
       const sendMail = sinon.spy(Queue, 'create');
 
       const response = await chai.request(app)
-        .post('/subscriptions')
+        .post('/api/subscriptions')
         .set('Authorization', `Bearer ${token}`)
         .send({
           meetup_id: meetup.id,
@@ -78,7 +78,7 @@ describe('Subscription Controller', () => {
     const token = user.generateToken();
 
     const response = await chai.request(app)
-      .post('/subscriptions')
+      .post('/api/subscriptions')
       .set('Authorization', `Bearer ${token}`)
       .send();
 

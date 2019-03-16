@@ -19,7 +19,7 @@ describe('User Controller', () => {
       const data = await factory.attrs('User');
 
       const response = await chai.request(app)
-        .post('/users')
+        .post('/api/users')
         .send({
           ...data,
           password_confirmation: data.password,
@@ -35,7 +35,7 @@ describe('User Controller', () => {
       await factory.create('User', { email: data.email });
 
       const response = await chai.request(app)
-        .post('/users')
+        .post('/api/users')
         .send({
           ...data,
           password_confirmation: data.password,
@@ -49,7 +49,7 @@ describe('User Controller', () => {
       const data = await factory.attrs('User');
 
       const response = await chai.request(app)
-        .post('/users')
+        .post('/api/users')
         .send(data);
 
       expect(response.status).to.be.eq(422);
@@ -64,7 +64,7 @@ describe('User Controller', () => {
       const token = user.generateToken();
 
       const response = await chai.request(app)
-        .get('/profile')
+        .get('/api/profile')
         .set('Authorization', `Bearer ${token}`)
         .send();
 
@@ -81,7 +81,7 @@ describe('User Controller', () => {
       const token = user.generateToken();
 
       const response = await chai.request(app)
-        .put('/users')
+        .put('/api/users')
         .set('Authorization', `Bearer ${token}`)
         .send({
           ...data,
@@ -102,7 +102,7 @@ describe('User Controller', () => {
       const token = user.generateToken();
 
       const response = await chai.request(app)
-        .put('/users')
+        .put('/api/users')
         .set('Authorization', `Bearer ${token}`)
         .send(data);
 

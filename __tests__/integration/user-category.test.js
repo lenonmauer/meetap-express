@@ -24,7 +24,7 @@ describe('UserCategory Controller', () => {
       ];
 
       const response = await chai.request(app)
-        .put('/user-categories')
+        .put('/api/user-categories')
         .set('Authorization', `Bearer ${token}`)
         .send({ categories });
 
@@ -38,7 +38,7 @@ describe('UserCategory Controller', () => {
       const token = user.generateToken();
 
       const response = await chai.request(app)
-        .put('/user-categories')
+        .put('/api/user-categories')
         .set('Authorization', `Bearer ${token}`)
         .send();
 

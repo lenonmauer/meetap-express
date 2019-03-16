@@ -31,7 +31,7 @@ describe('File Controller', () => {
       const filepath = path.resolve(__dirname, '..', 'utils', 'upload', 'text.txt');
 
       const response = await chai.request(app)
-        .post('/upload')
+        .post('/api/upload')
         .attach('photo', filepath);
 
       expect(response.status).to.be.eq(400);
@@ -39,7 +39,7 @@ describe('File Controller', () => {
 
     it('should return error if file has sent', async () => {
       const response = await chai.request(app)
-        .post('/upload')
+        .post('/api/upload')
         .send();
 
       expect(response.status).to.be.eq(400);
@@ -51,7 +51,7 @@ describe('File Controller', () => {
       const file = await factory.create('File');
 
       const response = await chai.request(app)
-        .get(`/file/${file.id}`)
+        .get(`/api/file/${file.id}`)
         .send();
 
       expect(response.status).to.be.eq(200);

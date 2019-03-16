@@ -37,7 +37,7 @@ describe('Meetup Controller', () => {
       const token = user.generateToken();
 
       const response = await chai.request(app)
-        .get('/meetups')
+        .get('/api/meetups')
         .set('Authorization', `Bearer ${token}`)
         .send();
 
@@ -60,7 +60,7 @@ describe('Meetup Controller', () => {
       );
 
       const response = await chai.request(app)
-        .get('/meetups')
+        .get('/api/meetups')
         .set('Authorization', `Bearer ${token}`)
         .send();
 
@@ -87,7 +87,7 @@ describe('Meetup Controller', () => {
       );
 
       const response = await chai.request(app)
-        .get('/meetups')
+        .get('/api/meetups')
         .set('Authorization', `Bearer ${token}`)
         .send();
 
@@ -114,7 +114,7 @@ describe('Meetup Controller', () => {
       );
 
       const response = await chai.request(app)
-        .get('/meetups?search=up 1')
+        .get('/api/meetups?search=up 1')
         .set('Authorization', `Bearer ${token}`)
         .send();
 
@@ -134,7 +134,7 @@ describe('Meetup Controller', () => {
       const token = meetup.user.generateToken();
 
       const response = await chai.request(app)
-        .get(`/meetups/${meetup.id}`)
+        .get(`/api/meetups/${meetup.id}`)
         .set('Authorization', `Bearer ${token}`)
         .send({
           meetup_id: meetup.id,
@@ -159,7 +159,7 @@ describe('Meetup Controller', () => {
       const token = meetup.user.generateToken();
 
       const response = await chai.request(app)
-        .get(`/meetups/${meetup.id}`)
+        .get(`/api/meetups/${meetup.id}`)
         .set('Authorization', `Bearer ${token}`)
         .send({
           meetup_id: meetup.id,
@@ -178,7 +178,7 @@ describe('Meetup Controller', () => {
       const data = await factory.attrs('Meetup', { date, categories: ['back-end'] });
 
       const response = await chai.request(app)
-        .post('/meetups')
+        .post('/api/meetups')
         .set('Authorization', `Bearer ${token}`)
         .send(data);
 
@@ -193,7 +193,7 @@ describe('Meetup Controller', () => {
       const data = await factory.attrs('Meetup', { date: lowerDate, categories: ['front-end'] });
 
       const response = await chai.request(app)
-        .post('/meetups')
+        .post('/api/meetups')
         .set('Authorization', `Bearer ${token}`)
         .send(data);
 
@@ -206,7 +206,7 @@ describe('Meetup Controller', () => {
       const token = user.generateToken();
 
       const response = await chai.request(app)
-        .post('/meetups')
+        .post('/api/meetups')
         .set('Authorization', `Bearer ${token}`)
         .send();
 

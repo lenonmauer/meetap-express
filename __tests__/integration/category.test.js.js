@@ -11,7 +11,7 @@ describe('Category Controller', () => {
   describe('Index', () => {
     it('should return all categories', async () => {
       const response = await chai.request(app)
-        .get('/categories')
+        .get('/api/categories')
         .send();
 
       expect(response.status).to.be.eq(200);
