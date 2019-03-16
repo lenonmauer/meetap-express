@@ -22,8 +22,8 @@ class CategoryController {
         name: 'Gestão',
       },
       {
-        id: 'Marketing',
-        name: 'marketing',
+        id: 'marketing',
+        name: 'Marketing',
       },
     ]);
   }
