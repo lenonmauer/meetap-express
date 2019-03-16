@@ -2,13 +2,13 @@ const File = require('../models/File');
 
 class FileController {
   async store (req, res) {
-    const { originalname: name, key, size, location: url = '' } = req.file;
-
     if (!req.file) {
       return res.status(400).send({
         error: 'Nenhum arquivo enviado',
       });
     }
+
+    const { originalname: name, key, size, location: url = '' } = req.file;
 
     const data = {
       key,
