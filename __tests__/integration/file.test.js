@@ -4,7 +4,6 @@ const chaiHttp = require('chai-http');
 
 const app = require('../../src/server');
 
-const factory = require('../factories');
 const truncate = require('../utils/truncate');
 const { expect } = chai;
 
@@ -20,7 +19,7 @@ describe('File Controller', () => {
       const filepath = path.resolve(__dirname, '..', 'utils', 'upload', 'image.jpg');
 
       const response = await chai.request(app)
-        .post('/upload')
+        .post('/api/upload')
         .attach('photo', filepath);
 
       expect(response.status).to.be.eq(200);
@@ -43,18 +42,6 @@ describe('File Controller', () => {
         .send();
 
       expect(response.status).to.be.eq(400);
-    });
-  });
-
-  describe('Show', () => {
-    it('should render the file', async () => {
-      const file = await factory.create('File');
-
-      const response = await chai.request(app)
-        .get(`/api/file/${file.id}`)
-        .send();
-
-      expect(response.status).to.be.eq(200);
     });
   });
 });
