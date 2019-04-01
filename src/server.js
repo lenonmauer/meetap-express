@@ -1,6 +1,4 @@
-const envPath = process.env.NODE_ENV
-  ? `.env.${process.env.NODE_ENV.trim()}`
-  : '.env';
+const envPath = process.env.NODE_ENV ? `.env.${process.env.NODE_ENV.trim()}` : '.env';
 
 require('dotenv').config({ path: envPath });
 
@@ -11,12 +9,12 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cors = require('cors');
 const compression = require('compression');
-const path = require('path');
 
 const mongoConfig = require('./config/database');
 const sentryConfig = require('./config/sentry');
 const { uploadDir } = require('./config/upload');
 const routes = require('./routes');
+const notFoundMiddleware = require('./app/middlewares/not-found');
 
 class App {
   constructor () {
@@ -58,6 +56,8 @@ class App {
     if (process.env.NODE_ENV === 'production') {
       this.express.use(Sentry.Handlers.errorHandler());
     }
+
+    this.express.use(notFoundMiddleware);
 
     this.express.use(async (err, req, res) => {
       if (err.status === 400 || err.status === 422) {
