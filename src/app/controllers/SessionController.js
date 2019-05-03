@@ -1,15 +1,7 @@
-const { validationResult } = require('express-validator/check');
-
 const User = require('../models/User');
 
 class SessionController {
   async store (req, res) {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
@@ -18,7 +10,7 @@ class SessionController {
       return res.status(400).json({ error: 'E-mail não encontrado' });
     }
 
-    if (!await user.compareHash(password)) {
+    if (!(await user.compareHash(password))) {
       return res.status(400).json({ error: 'Senha inválida' });
     }
 

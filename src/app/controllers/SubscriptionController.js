@@ -1,4 +1,3 @@
-const { validationResult } = require('express-validator/check');
 const moment = require('moment');
 
 const Meetup = require('../models/Meetup');
@@ -8,12 +7,6 @@ const NewSubscriptionMail = require('../jobs/NewSubscriptionMail');
 
 class SubscriptionController {
   async store (req, res) {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-
     const meetup = await Meetup.findOneAndUpdate(
       {
         _id: req.body.meetup_id,

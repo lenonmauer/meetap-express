@@ -1,5 +1,3 @@
-const { validationResult } = require('express-validator/check');
-
 const User = require('../models/User');
 const { extract } = require('../helpers/functions');
 
@@ -16,12 +14,6 @@ class UserController {
   }
 
   async store (req, res, next) {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-
     const data = extract(req.body, ['email', 'password', 'name']);
     const { email } = data;
 
@@ -35,12 +27,6 @@ class UserController {
   }
 
   async update (req, res, next) {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-
     const user = await User.findOne({ _id: req.userId });
     const data = extract(req.body, ['name', 'password', 'categories']);
 
