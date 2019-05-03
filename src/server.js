@@ -15,6 +15,8 @@ const sentryConfig = require('./config/sentry');
 const { uploadDir } = require('./config/upload');
 const routes = require('./routes');
 
+const { 'not-found': notFoundMiddleware } = require('./app/middlewares');
+
 class App {
   constructor () {
     this.express = express();
@@ -32,10 +34,13 @@ class App {
   }
 
   database () {
-    mongoose.connect(mongoConfig.uri, {
-      useCreateIndex: true,
-      useNewUrlParser: true,
-    });
+    mongoose
+      .connect(mongoConfig.uri, {
+        useCreateIndex: true,
+        useNewUrlParser: true,
+      })
+      .then(() => console.log('database connected'))
+      .catch((err) => console.log(err));
   }
 
   middlewares () {
@@ -49,6 +54,7 @@ class App {
   routes () {
     this.express.use('/api/files', express.static(uploadDir));
     this.express.use('/api', routes);
+    this.express.use(notFoundMiddleware);
   }
 
   exception () {
